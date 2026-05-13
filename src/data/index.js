@@ -19,7 +19,7 @@ export const projects = [
     tech: ['Python', 'FastAPI', 'React', 'LSTM', 'XGBoost', 'BERT', 'Reinforcement Learning', 'Recharts', 'Vercel'],
     image: '/assets/Hotel_dashboard_thumbnail.png',
     github: 'https://github.com/Sinwansiraj',
-    demo: 'https://hotel-problems-fbevoueo5-mohammed-sinwan-s-projects.vercel.app/',
+    demo: 'https://hotel-problems.vercel.app/',
     category: 'ML Platform / Full-Stack',
     color: '#ec4899',
     featured: true,
