@@ -239,8 +239,8 @@ export default function Projects() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 })
   const [filter, setFilter] = useState('All')
 
-  const categories = ['All', 'Featured', 'ML Platform / Full-Stack', 'ML / Sales Intelligence', 'AI Analytics / Automation', 'NLP / Cloud / AWS', 'ML / Recommendation', 'Deep Learning / Computer Vision', 'Data Science / FinTech', 'Data Engineering / Scraping']
-  const shortCats = ['All', '⭐ Featured', 'ML Platform', 'Lead AI', 'Mini Zia', 'AWS / NLP', 'Recommendation', 'Computer Vision', 'FinTech', 'Data Eng']
+  const categories = ['All', 'Featured', 'ML Platform / Full-Stack', 'ML / Sales Intelligence', 'AI Analytics / Automation', 'NLP / Cloud / AWS', 'ML / Recommendation', 'Deep Learning / Computer Vision', 'Data Science / FinTech', 'Data Engineering / Scraping', 'ML / Healthcare']
+  const shortCats = ['All', '⭐ Featured', 'ML Platform', 'Lead AI', 'Mini Zia', 'AWS / NLP', 'Recommendation', 'Computer Vision', 'FinTech', 'Data Eng', 'Healthcare']
 
   const filtered = filter === 'All'
     ? [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))

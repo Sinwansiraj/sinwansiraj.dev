@@ -193,6 +193,29 @@ export const projects = [
       { model: 'CNN (scratch)', accuracy: '92.34%', f1: '92.09%' },
     ],
   },
+  {
+    id: 10,
+    title: 'Diabetes Risk Predictor',
+    tagline: 'Full-stack ML web app with user authentication',
+    description:
+      'A full-stack web application that predicts an individual\'s diabetes risk based on clinical health indicators. Features user login/signup, a clean Bootstrap UI, and a scikit-learn model served via Flask — deployed live on Vercel.',
+    problem:
+      'Early detection of diabetes risk can prevent serious long-term health complications, yet most people lack access to quick, data-driven screening tools. This app makes ML-powered risk assessment accessible to anyone through a simple web interface.',
+    features: [
+      'Scikit-learn classification model trained on clinical health indicators (glucose, BMI, insulin, age, etc.)',
+      'User authentication system — register, login, and session management with SQLite backend',
+      'Flask REST API serving real-time predictions from the trained model',
+      'Clean, responsive Bootstrap 5 UI with intuitive input form and result display',
+      'Deployed live on Vercel — accessible from any device with a browser',
+    ],
+    tech: ['Python', 'Flask', 'Scikit-learn', 'SQLite', 'Bootstrap 5', 'Pandas', 'Vercel'],
+    image: '/assets/Diabetes_predictor_thumbnail.png',
+    github: 'https://github.com/Sinwansiraj/Diabetics_Risk_predictor',
+    demo: 'https://diabetics-risk-predictor.vercel.app/login',
+    category: 'ML / Healthcare',
+    color: '#10b981',
+    featured: false,
+  },
 ]
 
 // ─── Skills Data ──────────────────────────────────────────────────────────────
