@@ -27,7 +27,7 @@ export const projects = [
   {
     id: 2,
     title: 'AI Lead Quality Scoring System',
-    tagline: 'Production-grade B2B CRM lead prioritisation — live FastAPI on Render',
+    tagline: 'Production-grade B2B CRM lead prioritisation — live FastAPI on Vercel',
     description:
       'A production-ready ML system that scores inbound B2B leads 0–100 by conversion probability and issues prescriptive sales actions — so reps focus only on leads that convert. XGBoost + engineered engagement signals, live REST API on Render.',
     problem:
@@ -36,14 +36,14 @@ export const projects = [
       'XGBoost production model with scale_pos_weight for 12% imbalanced conversion rate — ROC-AUC > 0.85',
       '5 engineered features: Engagement Score (0–100), Recency Decay, Interaction Intensity, Sales Readiness Score, Demo × Engagement interaction',
       'Lead Quality Scoring: model probability → 0–100 score → Hot / Warm / Cold tier + prescriptive action (Immediate Call / Demo Invite / Nurture / Re-qualification)',
-      'FastAPI REST endpoint /api/v1/score-lead — real-time & batch scoring, CRM webhook-ready, live on Render',
+      'FastAPI REST endpoint /api/v1/score-lead — real-time & batch scoring, CRM webhook-ready, live on Vercel',
       'SHAP feature importance: surfaces top drivers (demo requested, engagement score, company size, recency) for full explainability',
       'End-to-end pipeline: synthetic CRM data gen → feature engineering → preprocessing → train → evaluate → score → rank → deploy',
     ],
-    tech: ['Python', 'XGBoost', 'SHAP', 'FastAPI', 'Scikit-learn', 'Pandas', 'Render', 'Jupyter'],
+    tech: ['Python', 'XGBoost', 'SHAP', 'FastAPI', 'Scikit-learn', 'Pandas', 'Vercel', 'Jupyter'],
     image: '/assets/Lead_scoring_thumbnail.png',
     github: 'https://github.com/Sinwansiraj/ai-lead-scoring-system',
-    demo: 'https://ai-lead-scoring-system.onrender.com/docs#/',
+    demo: 'https://ai-lead-scoring-system.vercel.app/',
     category: 'ML / Sales Intelligence',
     color: '#00d4ff',
     featured: true,
