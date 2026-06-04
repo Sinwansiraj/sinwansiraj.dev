@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Github, Star, GitFork, Users, BookOpen, Code2, ExternalLink, TrendingUp } from 'lucide-react'
+import { Github, Star, GitFork, BookOpen, Code2, ExternalLink, TrendingUp, Rocket, Zap, Activity, BarChart3 } from 'lucide-react'
 
 const GITHUB_USER = 'Sinwansiraj'
 
@@ -36,8 +36,8 @@ function getLangColor(lang) {
   return langColors[lang] || langColors.default
 }
 
-// Animated counter
-function Counter({ value, duration = 1.5 }) {
+// Animated counter with optional suffix (e.g. "%+", "+", "x")
+function Counter({ value, suffix = '', duration = 1.5 }) {
   const [count, setCount] = useState(0)
   useEffect(() => {
     if (!value) return
@@ -53,7 +53,7 @@ function Counter({ value, duration = 1.5 }) {
     }
     requestAnimationFrame(tick)
   }, [value, duration])
-  return count
+  return <>{count}{suffix}</>
 }
 
 export default function GitHubStats() {
@@ -105,32 +105,39 @@ export default function GitHubStats() {
     }
   }
 
-  const totalStars = repos.reduce((acc, r) => acc + r.stargazers_count, 0)
-
+  // Curated achievement metrics — more meaningful than follower/star counts
   const statCards = [
     {
-      icon: BookOpen,
-      label: 'Public Repos',
-      value: userData?.public_repos,
+      icon: Rocket,
+      label: 'Live Deployed Apps',
+      value: 3,
+      suffix: '',
+      sublabel: 'Vercel · Render · Streamlit',
       color: '#00d4ff',
     },
     {
-      icon: Users,
-      label: 'Followers',
-      value: userData?.followers,
+      icon: Zap,
+      label: 'REST APIs Built',
+      value: 3,
+      suffix: '+',
+      sublabel: 'FastAPI · Python backends',
       color: '#7c3aed',
     },
     {
-      icon: Star,
-      label: 'Total Stars',
-      value: totalStars,
-      color: '#f59e0b',
+      icon: Activity,
+      label: 'Best Model ROC-AUC',
+      value: 85,
+      suffix: '%+',
+      sublabel: 'XGBoost · Lead Scoring',
+      color: '#10b981',
     },
     {
-      icon: TrendingUp,
-      label: 'Following',
-      value: userData?.following,
-      color: '#ec4899',
+      icon: BarChart3,
+      label: 'Sales Efficiency Gain',
+      value: 70,
+      suffix: '%',
+      sublabel: 'Leads prioritised by AI',
+      color: '#f59e0b',
     },
   ]
 
@@ -201,7 +208,7 @@ export default function GitHubStats() {
                     animate={inView ? 'visible' : 'hidden'}
                     whileHover={{ y: -4, scale: 1.02 }}
                     className="glass rounded-2xl p-5 text-center"
-                    style={{ boxShadow: `0 0 0 1px ${card.color}15` }}
+                    style={{ boxShadow: `0 0 0 1px ${card.color}20` }}
                   >
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3"
@@ -210,9 +217,12 @@ export default function GitHubStats() {
                       <Icon className="w-4 h-4" style={{ color: card.color }} />
                     </div>
                     <p className="text-2xl font-display font-bold text-white">
-                      {inView && card.value != null ? <Counter value={card.value} /> : '—'}
+                      {inView ? <Counter value={card.value} suffix={card.suffix} /> : '—'}
                     </p>
                     <p className="text-xs text-white/40 font-mono mt-1 uppercase tracking-wider">{card.label}</p>
+                    {card.sublabel && (
+                      <p className="text-[10px] text-white/25 font-mono mt-1">{card.sublabel}</p>
+                    )}
                   </motion.div>
                 )
               })}
