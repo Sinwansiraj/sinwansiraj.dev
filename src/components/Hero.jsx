@@ -82,19 +82,6 @@ export default function Hero() {
         style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)', animation: 'float 12s ease-in-out infinite reverse' }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex justify-center mb-6"
-        >
-          <span className="section-tag">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            Available for opportunities
-          </span>
-        </motion.div>
-
         {/* Name */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
