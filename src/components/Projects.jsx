@@ -265,7 +265,7 @@ export default function Projects() {
         >
           <span className="section-tag mb-4 inline-flex">
             <Layers className="w-3 h-3" />
-            Portfolio
+            03 / Projects
           </span>
           <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
             Featured <span className="gradient-text">Projects</span>

@@ -131,7 +131,7 @@ export default function Experience() {
             animate={timelineInView ? 'visible' : 'hidden'}
             className="text-center mb-16"
           >
-            <span className="section-tag mb-4 inline-flex">Journey</span>
+            <span className="section-tag mb-4 inline-flex">05 / Journey</span>
             <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
               Learning &amp; <span className="gradient-text">Growth</span>
             </h2>
@@ -217,7 +217,7 @@ export default function Experience() {
             animate={certInView ? 'visible' : 'hidden'}
             className="text-center mb-14"
           >
-            <span className="section-tag mb-4 inline-flex">🏅 Credentials</span>
+            <span className="section-tag mb-4 inline-flex">06 / Credentials</span>
             <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
               Certifications &amp; <span className="gradient-text">Training</span>
             </h2>

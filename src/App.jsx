@@ -10,6 +10,7 @@ import Experience from './components/Experience'
 import Demos from './components/Demos'
 import GitHubStats from './components/GitHubStats'
 import Contact from './components/Contact'
+import Marquee from './components/Marquee'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -60,6 +61,7 @@ export default function App() {
           <Navbar />
           <main>
             <Hero />
+            <Marquee />
             <About />
             <Skills />
             <Projects />

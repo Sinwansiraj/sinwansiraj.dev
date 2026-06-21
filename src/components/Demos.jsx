@@ -166,7 +166,7 @@ export default function Demos() {
         >
           <span className="section-tag mb-4 inline-flex">
             <MonitorPlay className="w-3 h-3" />
-            Try It Live
+            04 / Live Demos
           </span>
           <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
             Available <span className="gradient-text">Demos</span>

@@ -159,7 +159,7 @@ export default function GitHubStats() {
         >
           <span className="section-tag mb-4 inline-flex">
             <Github className="w-3 h-3" />
-            Open Source
+            07 / Open Source
           </span>
           <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
             GitHub <span className="gradient-text">Activity</span>

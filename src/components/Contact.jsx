@@ -86,7 +86,7 @@ export default function Contact() {
           animate={inView ? 'visible' : 'hidden'}
           className="text-center mb-16"
         >
-          <span className="section-tag mb-4 inline-flex">Get In Touch</span>
+          <span className="section-tag mb-4 inline-flex">08 / Get In Touch</span>
           <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
             Let&apos;s <span className="gradient-text">Connect</span>
           </h2>

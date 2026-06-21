@@ -61,7 +61,7 @@ export default function About() {
           animate={inView ? 'visible' : 'hidden'}
           className="text-center mb-16"
         >
-          <span className="section-tag mb-4 inline-flex">About Me</span>
+          <span className="section-tag mb-4 inline-flex">01 / About Me</span>
           <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
             Turning <span className="gradient-text">Data into Intelligence</span>
           </h2>

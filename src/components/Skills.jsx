@@ -29,7 +29,7 @@ export default function Skills() {
           animate={inView ? 'visible' : 'hidden'}
           className="text-center mb-16"
         >
-          <span className="section-tag mb-4 inline-flex">Tech Stack</span>
+          <span className="section-tag mb-4 inline-flex">02 / Tech Stack</span>
           <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
             Skills &amp; <span className="gradient-text">Expertise</span>
           </h2>

@@ -1,6 +1,36 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Download } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+
+// Live clock — IST (UTC+5:30)
+function LiveClock() {
+  const [time, setTime] = useState('')
+
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date()
+      setTime(
+        now.toLocaleTimeString('en-IN', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        })
+      )
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <span className="hidden lg:flex items-center gap-1.5 text-xs font-mono text-white/30 tracking-wider">
+      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+      IST {time}
+    </span>
+  )
+}
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -69,6 +99,9 @@ export default function Navbar() {
                 Sinwan<span className="gradient-text-cyan">.</span>
               </span>
             </motion.button>
+
+            {/* Live clock */}
+            <LiveClock />
 
             {/* Desktop Links */}
             <div className="hidden md:flex items-center gap-1">
