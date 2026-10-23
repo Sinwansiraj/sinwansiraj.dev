@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Mail, Github, Linkedin, Send, MapPin, CheckCircle } from 'lucide-react'
+import { Mail, Github, Linkedin, Send, MapPin, CheckCircle, Download } from 'lucide-react'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -165,6 +165,12 @@ export default function Contact() {
                 Currently open to AI/ML Engineer, Data Scientist, and Python Developer roles.
               </p>
             </div>
+
+            {/* Download resume — TODO: add the file at public/resume.pdf so this link resolves. */}
+            <a href="/resume.pdf" download className="btn-outline w-full justify-center">
+              <Download className="w-4 h-4" />
+              Download Resume
+            </a>
           </motion.div>
 
           {/* Right: Form */}

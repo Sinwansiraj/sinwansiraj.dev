@@ -9,6 +9,7 @@ import Projects from './components/Projects'
 import Experience from './components/Experience'
 import Demos from './components/Demos'
 import GitHubStats from './components/GitHubStats'
+import Services from './components/Services'
 import Contact from './components/Contact'
 import Marquee from './components/Marquee'
 import Footer from './components/Footer'
@@ -68,6 +69,7 @@ export default function App() {
             <Demos />
             <Experience />
             <GitHubStats />
+            <Services />
             <Contact />
           </main>
           <Footer />

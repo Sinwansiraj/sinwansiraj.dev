@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { TypeAnimation } from 'react-type-animation'
-import { ArrowRight, Github, Mail, ChevronDown } from 'lucide-react'
+import { ArrowRight, Github, Mail, ChevronDown, Download } from 'lucide-react'
 
 // Generate floating particles
 function Particles() {
@@ -151,6 +151,12 @@ export default function Hero() {
             <Mail className="w-4 h-4" />
             Contact Me
           </button>
+
+          {/* TODO: add the resume file at public/resume.pdf so this link resolves. */}
+          <a href="/resume.pdf" download className="btn-outline">
+            <Download className="w-4 h-4" />
+            Download Resume
+          </a>
 
           <a
             href="https://github.com/Sinwansiraj"

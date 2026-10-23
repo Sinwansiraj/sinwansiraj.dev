@@ -39,6 +39,7 @@ const navLinks = [
   { label: 'Demos', href: '#demos' },
   { label: 'Experience', href: '#experience' },
   { label: 'Certs', href: '#certifications' },
+  { label: 'Services', href: '#services' },
   { label: 'Contact', href: '#contact' },
 ]
 
