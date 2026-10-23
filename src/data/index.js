@@ -1,6 +1,31 @@
 // ─── Projects Data ───────────────────────────────────────────────────────────
 export const projects = [
   {
+    id: 11,
+    title: 'Chakshi — AI Legal Research Platform for Indian Lawyers',
+    tagline: 'RAG legal research for Indian law firms — founder & sole engineer',
+    description:
+      'A RAG-based legal research platform for Indian law firms and lawyers. Chakshi answers legal questions over Indian case law and statutes and verifies every citation, so each answer is traceable back to its source. Built end-to-end as founder and sole engineer.',
+    problem:
+      'Legal research in India is slow and manual — lawyers spend hours cross-referencing judgments and statutes, and AI answers are only useful if they can be trusted. Chakshi retrieves relevant law through a RAG pipeline and verifies citations so every answer is both fast and traceable to its source.',
+    features: [
+      'RAG pipeline with pgvector retrieval over ingested Indian court data — relevant judgments and statutes surfaced per query',
+      'Citation verification: every answer is traced back to its source document so lawyers can trust and check it',
+      'Next.js / Vite frontend with a FastAPI backend, Supabase (Postgres + pgvector) for data and embeddings, hosted on Render',
+      'Indian court-data ingestion pipeline feeding the vector store',
+      'Security engineering: JWT algorithm enforcement, secret rotation, and security audits of the Render / Supabase infrastructure',
+      'Release-gate review process gating every production deploy',
+      // TODO(metric): add a real usage/traction metric when available (e.g. firms onboarded, documents indexed) — do NOT invent numbers.
+    ],
+    tech: ['Next.js', 'Vite', 'FastAPI', 'Supabase', 'Postgres', 'pgvector', 'RAG', 'Render'],
+    image: '/assets/chakshi_thumbnail.png', // TODO: add Chakshi thumbnail at public/assets/chakshi_thumbnail.png (falls back to a gradient until then)
+    github: 'https://github.com/Sinwansiraj',
+    demo: 'https://hub.chakshi.com',
+    category: 'AI / Legal Tech / RAG',
+    color: '#6366f1',
+    featured: true,
+  },
+  {
     id: 1,
     title: 'Hotel Domain ML Platform',
     tagline: '10-problem unified AI platform for hospitality',
