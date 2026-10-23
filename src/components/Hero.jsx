@@ -152,8 +152,7 @@ export default function Hero() {
             Contact Me
           </button>
 
-          {/* TODO: add the resume file at public/resume.pdf so this link resolves. */}
-          <a href="/resume.pdf" download className="btn-outline">
+          <a href="/resume.pdf" download="Mohammed_Sinwan_Resume.pdf" className="btn-outline">
             <Download className="w-4 h-4" />
             Download Resume
           </a>

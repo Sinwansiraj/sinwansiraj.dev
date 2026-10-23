@@ -201,8 +201,8 @@ export default function Contact() {
               </p>
             </div>
 
-            {/* Download resume — TODO: add the file at public/resume.pdf so this link resolves. */}
-            <a href="/resume.pdf" download className="btn-outline w-full justify-center">
+            {/* Download resume (public/resume.pdf) */}
+            <a href="/resume.pdf" download="Mohammed_Sinwan_Resume.pdf" className="btn-outline w-full justify-center">
               <Download className="w-4 h-4" />
               Download Resume
             </a>
