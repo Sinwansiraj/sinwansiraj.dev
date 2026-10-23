@@ -385,17 +385,17 @@ export const timeline = [
   },
   {
     year: 'Jan 2019 – Aug 2024',
-    title: 'Head of Operations',
-    subtitle: 'Restaurant Business · 40-Pax Capacity',
+    title: 'Operations Manager',
+    subtitle: 'Family Hospitality Business · Coimbatore',
     description:
-      'Ran a 40-pax restaurant end-to-end as Head of Operations with a team of 8 — overseeing day-to-day service, vendor relations, staffing, and customer experience. 5 years running real operations that shaped a data-driven approach to the business.',
+      'Managed day-to-day operations, sales, and customer relations for a family hospitality business — improving service efficiency and cost awareness through data-informed decisions. Over five years running real operations that shaped a data-driven approach to the business.',
     tags: ['Operations', 'Business Management', 'Team Leadership', 'Hospitality'],
     icon: '🍽️',
   },
   {
-    year: 'Jun 2016 – Dec 2018',
+    year: 'Aug 2017 – Dec 2018',
     title: 'Front Office Assistant',
-    subtitle: 'Black Thunder Resorts',
+    subtitle: 'Black Thunder Resort',
     description:
       'Began career in hospitality at one of India\'s premier resorts — handling guest check-ins, reservations, and front-desk operations. Built the foundation in customer experience and hotel systems that later informed data-driven thinking.',
     tags: ['Front Office', 'Guest Relations', 'Hotel Systems', 'Hospitality'],
