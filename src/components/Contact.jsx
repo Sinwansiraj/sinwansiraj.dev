@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Mail, Github, Linkedin, Send, MapPin, CheckCircle, Download } from 'lucide-react'
+import { Mail, Github, Linkedin, Send, MapPin, CheckCircle, Download, AlertCircle } from 'lucide-react'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -50,21 +50,56 @@ const socials = [
   },
 ]
 
+// Formspree form ID — set VITE_FORMSPREE_ID in your env (see .env.example).
+const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID
+
 export default function Contact() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
+  const handleChange = e => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+    if (error) setError('')
+  }
 
   const handleSubmit = async e => {
     e.preventDefault()
+    setError('')
+
+    if (!FORMSPREE_ID) {
+      setError('The contact form isn’t set up yet. Please email me directly at sinwanmohammed022@gmail.com.')
+      return
+    }
+
     setLoading(true)
-    // Simulate send (replace with actual form service like Formspree/EmailJS)
-    await new Promise(r => setTimeout(r, 1200))
-    setLoading(false)
-    setSent(true)
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          _subject: form.subject
+            ? `Portfolio contact: ${form.subject}`
+            : 'New portfolio contact',
+        }),
+      })
+
+      if (res.ok) {
+        setSent(true)
+      } else {
+        // Surface Formspree's own validation message when it sends one.
+        const data = await res.json().catch(() => null)
+        const msg = data?.errors?.map(err => err.message).filter(Boolean).join(', ')
+        setError(msg || 'Something went wrong sending your message. Please try again, or email me directly.')
+      }
+    } catch {
+      setError('Couldn’t reach the server. Check your connection and try again, or email me directly.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -264,6 +299,21 @@ export default function Contact() {
                     className="contact-input resize-none"
                   />
                 </div>
+
+                {error && (
+                  <div
+                    role="alert"
+                    className="flex items-start gap-2 rounded-xl p-3 text-xs leading-relaxed"
+                    style={{
+                      background: 'rgba(239,68,68,0.08)',
+                      border: '1px solid rgba(239,68,68,0.3)',
+                      color: '#fca5a5',
+                    }}
+                  >
+                    <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <span>{error}</span>
+                  </div>
+                )}
 
                 <button
                   type="submit"
