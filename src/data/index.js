@@ -363,6 +363,15 @@ export const stats = [
 // ─── Experience / Timeline ────────────────────────────────────────────────────
 export const timeline = [
   {
+    year: '2025 – Present',
+    title: 'Founder & ML Engineer — Chakshi',
+    subtitle: 'AI Legal Research Platform · hub.chakshi.com',
+    description:
+      'Building Chakshi end-to-end as founder and sole engineer — a RAG-based legal research platform for Indian lawyers with citation verification. FastAPI + Supabase (Postgres + pgvector) backend, Next.js / Vite frontend hosted on Render, plus the JWT hardening, secret rotation, and release-gate review process that keep it production-ready.',
+    tags: ['RAG', 'FastAPI', 'Supabase', 'pgvector', 'Next.js'],
+    icon: '⚖️',
+  },
+  {
     year: '2024 – Present',
     title: 'AI/ML Engineer & Product Builder',
     subtitle: 'Independent Projects',
@@ -373,10 +382,10 @@ export const timeline = [
   },
   {
     year: 'Jan 2019 – Aug 2024',
-    title: 'Entrepreneur & Head of Operations',
+    title: 'Head of Operations',
     subtitle: 'Restaurant Business · 40-Pax Capacity',
     description:
-      'Founded and operated a 40-pax restaurant, managing end-to-end operations as Head of Operations with a team of 8. Oversaw day-to-day service, vendor relations, staffing, and customer experience — 5 years of running a real business that shaped a data-driven approach to operations.',
+      'Ran a 40-pax restaurant end-to-end as Head of Operations with a team of 8 — overseeing day-to-day service, vendor relations, staffing, and customer experience. 5 years running real operations that shaped a data-driven approach to the business.',
     tags: ['Operations', 'Business Management', 'Team Leadership', 'Hospitality'],
     icon: '🍽️',
   },

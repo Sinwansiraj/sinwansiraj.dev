@@ -111,7 +111,7 @@ export default function About() {
             {/* Bio paragraphs */}
             <div className="space-y-4 text-white/60 leading-relaxed text-sm sm:text-base">
               <p>
-                I'm a <span className="text-white/90 font-medium">former hospitality entrepreneur turned AI/ML Engineer</span> — 8 years running hotel operations gave me a front-row seat to the inefficiencies data science can solve.
+                I'm a <span className="text-white/90 font-medium">former hospitality operations lead turned AI/ML Engineer</span> — 8 years across hotels and restaurants gave me a front-row seat to the inefficiencies data science can solve.
               </p>
               <p>
                 After running a 40-pax restaurant as Head of Operations and managing a team of 8, I transitioned into Data Science in 2024 — and I've been building ever since. That domain depth is why my{' '}
