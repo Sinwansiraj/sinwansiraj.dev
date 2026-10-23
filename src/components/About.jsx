@@ -35,7 +35,7 @@ const highlights = [
     icon: Zap,
     color: '#f59e0b',
     title: 'Cloud & Deployment',
-    desc: 'Leveraging AWS services (S3, Lambda, Comprehend) to deploy scalable, serverless AI solutions in the cloud.',
+    desc: 'Training and serving models on AWS — EC2 for compute, S3 for data, and RDS — alongside Vercel and Render app deployments.',
   },
 ]
 
@@ -102,8 +102,7 @@ export default function About() {
               </div>
               <div>
                 <h3 className="text-xl font-display font-semibold text-white">Mohammed Sinwan</h3>
-                <p className="text-xs text-white/30 font-mono -mt-0.5 mb-1">Sinwan Siraj</p>
-                <p className="text-sm text-cyan-400 font-mono">AI / ML Engineer</p>
+                <p className="text-sm text-cyan-400 font-mono mt-1">AI / ML Engineer</p>
                 <p className="text-sm text-white/40 mt-1">📍 India &nbsp;·&nbsp; Open to Remote</p>
               </div>
             </div>

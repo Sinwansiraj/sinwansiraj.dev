@@ -121,7 +121,7 @@ export default function Contact() {
           animate={inView ? 'visible' : 'hidden'}
           className="text-center mb-16"
         >
-          <span className="section-tag mb-4 inline-flex">08 / Get In Touch</span>
+          <span className="section-tag mb-4 inline-flex">09 / Get In Touch</span>
           <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
             Let&apos;s <span className="gradient-text">Connect</span>
           </h2>
@@ -197,7 +197,7 @@ export default function Contact() {
                 <span className="text-sm font-semibold text-green-400">Available for opportunities</span>
               </div>
               <p className="text-xs text-white/40 mt-2 ml-5">
-                Currently open to AI/ML Engineer, Data Scientist, and Python Developer roles.
+                Currently open to AI/ML Engineer, Data Analyst, Data Scientist, Customer Success, and Python Developer roles.
               </p>
             </div>
 

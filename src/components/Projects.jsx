@@ -69,22 +69,24 @@ function ProjectCard({ project, index, inView }) {
         {/* Hover overlay with links */}
         <div className="project-overlay absolute inset-0 flex items-center justify-center gap-3"
           style={{ background: 'rgba(2,4,16,0.85)' }}>
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={e => e.stopPropagation()}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium"
-            style={{
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.2)',
-              color: 'white',
-              transition: 'all 0.2s',
-            }}
-          >
-            <Github className="w-4 h-4" />
-            Code
-          </a>
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium"
+              style={{
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                color: 'white',
+                transition: 'all 0.2s',
+              }}
+            >
+              <Github className="w-4 h-4" />
+              Code
+            </a>
+          )}
           {project.demo && (
             <a
               href={project.demo}
@@ -197,15 +199,17 @@ function ProjectCard({ project, index, inView }) {
         {/* Action row */}
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/08">
           <div className="flex gap-2">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors"
-            >
-              <Github className="w-3.5 h-3.5" />
-              GitHub
-            </a>
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors"
+              >
+                <Github className="w-3.5 h-3.5" />
+                GitHub
+              </a>
+            )}
             {project.demo && (
               <a
                 href={project.demo}

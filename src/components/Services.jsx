@@ -65,7 +65,7 @@ export default function Services() {
           animate={inView ? 'visible' : 'hidden'}
           className="text-center mb-16"
         >
-          <span className="section-tag mb-4 inline-flex">07 / Work With Me</span>
+          <span className="section-tag mb-4 inline-flex">08 / Work With Me</span>
           <h2 className="text-4xl sm:text-5xl font-display font-bold mt-4">
             AI &amp; Automation for <span className="gradient-text">Small Teams</span>
           </h2>

@@ -3,23 +3,21 @@ export const projects = [
   {
     id: 11,
     title: 'Chakshi — AI Legal Research Platform for Indian Lawyers',
-    tagline: 'RAG legal research for Indian law firms — founder & sole engineer',
+    tagline: 'Legal-tech AI SaaS for Indian lawyers — AI / software engineer (2025–2026)',
     description:
-      'A RAG-based legal research platform for Indian law firms and lawyers. Chakshi answers legal questions over Indian case law and statutes and verifies every citation, so each answer is traceable back to its source. Built end-to-end as founder and sole engineer.',
+      'A multi-tenant RAG legal-research SaaS for Indian law firms and lawyers, with citation verification so answers trace back to their sources. As an AI / software engineer on the team (2025–2026), I shipped 150+ merged pull requests across backend, data, AI, and release engineering — improving RAG answer and citation quality, building the platform\'s observability, and keeping a multi-tenant system reliable and secure.',
     problem:
       'Legal research in India is slow and manual — lawyers spend hours cross-referencing judgments and statutes, and AI answers are only useful if they can be trusted. Chakshi retrieves relevant law through a RAG pipeline and verifies citations so every answer is both fast and traceable to its source.',
     features: [
-      'RAG pipeline with pgvector retrieval over ingested Indian court data — relevant judgments and statutes surfaced per query',
-      'Citation verification: every answer is traced back to its source document so lawyers can trust and check it',
-      'Next.js / Vite frontend with a FastAPI backend, Supabase (Postgres + pgvector) for data and embeddings, hosted on Render',
-      'Indian court-data ingestion pipeline feeding the vector store',
-      'Security engineering: JWT algorithm enforcement, secret rotation, and security audits of the Render / Supabase infrastructure',
-      'Release-gate review process gating every production deploy',
-      // TODO(metric): add a real usage/traction metric when available (e.g. firms onboarded, documents indexed) — do NOT invent numbers.
+      'Shipped 150+ merged pull requests across backend, data, AI, and release engineering',
+      'Improved the RAG system\'s answer and citation quality, and added evaluation checks to catch regressions',
+      'Built an observability platform — metrics, logging, and alerting dashboards for the multi-tenant system',
+      'Resolved production incidents and security issues on a multi-tenant platform',
+      'Worked across the stack: FastAPI backend, Supabase (Postgres + pgvector), and a Next.js / Vite frontend on Render',
     ],
     tech: ['Next.js', 'Vite', 'FastAPI', 'Supabase', 'Postgres', 'pgvector', 'RAG', 'Render'],
     image: '/assets/chakshi_thumbnail.png', // TODO: add Chakshi thumbnail at public/assets/chakshi_thumbnail.png (falls back to a gradient until then)
-    github: 'https://github.com/Sinwansiraj',
+    github: null, // private/closed-source — no public repo; Code button hidden in the card
     demo: 'https://hub.chakshi.com',
     category: 'AI / Legal Tech / RAG',
     color: '#6366f1',
@@ -291,7 +289,7 @@ export const skillCategories = [
     label: 'Cloud & DevOps',
     icon: '☁️',
     color: '#f97316',
-    skills: ['AWS', 'Lambda', 'S3', 'Vercel'],
+    skills: ['AWS', 'EC2', 'S3', 'Vercel'],
   },
   {
     label: 'Tools & Workflow',
@@ -368,12 +366,12 @@ export const stats = [
 // ─── Experience / Timeline ────────────────────────────────────────────────────
 export const timeline = [
   {
-    year: '2025 – Present',
-    title: 'Founder & ML Engineer — Chakshi',
-    subtitle: 'AI Legal Research Platform · hub.chakshi.com',
+    year: '2025 – 2026',
+    title: 'AI / Software Engineer — Chakshi',
+    subtitle: 'Legal-Tech AI SaaS Startup · hub.chakshi.com',
     description:
-      'Building Chakshi end-to-end as founder and sole engineer — a RAG-based legal research platform for Indian lawyers with citation verification. FastAPI + Supabase (Postgres + pgvector) backend, Next.js / Vite frontend hosted on Render, plus the JWT hardening, secret rotation, and release-gate review process that keep it production-ready.',
-    tags: ['RAG', 'FastAPI', 'Supabase', 'pgvector', 'Next.js'],
+      'Worked across backend, data, AI, and release engineering on Chakshi, a multi-tenant legal-research SaaS — shipped 150+ merged pull requests, improved the RAG system\'s answer and citation quality with new evaluation checks, built an observability platform (metrics, logging, and alerting dashboards), and resolved production incidents and security issues.',
+    tags: ['RAG', 'FastAPI', 'Supabase', 'pgvector', 'Observability'],
     icon: '⚖️',
   },
   {
@@ -381,7 +379,7 @@ export const timeline = [
     title: 'AI/ML Engineer & Product Builder',
     subtitle: 'Independent Projects',
     description:
-      'Transitioned into AI/ML full-time — designing and shipping end-to-end intelligent products. Completed Data Science training at GUVI / IIT Madras Pravartak, then built the Hotel ML Platform (10 models, live on Vercel), AI Lead Scoring System, Mini Zia analytics engine, and a serverless NLP pipeline on AWS.',
+      'Transitioned into AI/ML full-time — designing and shipping end-to-end intelligent products. Completed Data Science training at GUVI / IIT Madras Pravartak, then built the Hotel ML Platform (10 models, live on Vercel), AI Lead Scoring System, Mini Zia analytics engine, and a fine-tuned DistilBERT news classifier on AWS (EC2 / S3 / RDS).',
     tags: ['Python', 'FastAPI', 'React', 'AWS', 'ML Platform'],
     icon: '🤖',
   },
