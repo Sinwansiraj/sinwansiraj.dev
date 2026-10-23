@@ -79,6 +79,18 @@ function CertCard({ cert, index, inView }) {
 
       {/* Content */}
       <div className="p-5">
+        {cert.kind && (
+          <span
+            className="inline-block text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md mb-2"
+            style={{
+              background: `${cert.color}12`,
+              border: `1px solid ${cert.color}30`,
+              color: cert.color,
+            }}
+          >
+            {cert.kind}
+          </span>
+        )}
         <h4 className="text-sm font-display font-semibold text-white leading-snug mb-1">
           {cert.title}
         </h4>
@@ -222,7 +234,7 @@ export default function Experience() {
               Certifications &amp; <span className="gradient-text">Training</span>
             </h2>
             <p className="mt-4 text-white/50 text-lg max-w-xl mx-auto">
-              Industry-recognised credentials from AWS, British Airways, Tata, and GUVI / IIT Pravartak.
+              A 6-month Data Science program with GUVI / IIT Pravartak, plus hands-on job simulations from AWS, British Airways, and Tata via Forage.
             </p>
           </motion.div>
 

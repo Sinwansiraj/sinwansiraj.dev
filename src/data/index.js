@@ -314,6 +314,7 @@ export const certifications = [
     color: '#10b981',
     badge: '🎓',
     issuerLogo: 'GUVI · HCL',
+    kind: 'Certification Program',
   },
   {
     id: 2,
@@ -326,6 +327,7 @@ export const certifications = [
     color: '#f59e0b',
     badge: '☁️',
     issuerLogo: 'AWS · Forage',
+    kind: 'Job Simulation (Forage)',
   },
   {
     id: 3,
@@ -338,6 +340,7 @@ export const certifications = [
     color: '#1d4ed8',
     badge: '✈️',
     issuerLogo: 'British Airways · Forage',
+    kind: 'Job Simulation (Forage)',
   },
   {
     id: 4,
@@ -350,6 +353,7 @@ export const certifications = [
     color: '#0ea5e9',
     badge: '📊',
     issuerLogo: 'Tata · Forage',
+    kind: 'Job Simulation (Forage)',
   },
 ]
 
@@ -357,7 +361,7 @@ export const certifications = [
 export const stats = [
   { value: '8+', label: 'AI/ML Projects', icon: '🏗️' },
   { value: '94%', label: 'Best Model Accuracy', icon: '🎯' },
-  { value: '4', label: 'Certifications', icon: '🏅' },
+  { value: '4', label: 'Certs & Job Sims', icon: '🏅' },
   { value: '3+', label: 'Cloud Deployments', icon: '☁️' },
 ]
 

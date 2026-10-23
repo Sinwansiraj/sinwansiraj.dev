@@ -48,10 +48,8 @@ export default function Marquee() {
         style={{ background: 'linear-gradient(to left, #020410, transparent)' }}
       />
 
-      <div className="flex flex-col gap-3">
-        <Track />
-        <Track reverse />
-      </div>
+      {/* Single track — the list scrolls once (duplicated internally only so the loop is seamless) */}
+      <Track />
     </div>
   )
 }

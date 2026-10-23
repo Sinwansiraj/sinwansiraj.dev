@@ -85,45 +85,6 @@ export default function Skills() {
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom proficiency bar */}
-        <motion.div
-          variants={fadeUp}
-          custom={9}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          className="mt-16 glass rounded-2xl p-8"
-        >
-          <h3 className="text-sm font-semibold text-white/60 uppercase tracking-widest font-mono mb-6">
-            Core proficiencies
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {[
-              { skill: 'Python & Data Science', pct: 90, color: '#00d4ff' },
-              { skill: 'Machine Learning', pct: 85, color: '#7c3aed' },
-              { skill: 'Deep Learning & NLP', pct: 75, color: '#ec4899' },
-              { skill: 'Streamlit & FastAPI', pct: 88, color: '#10b981' },
-              { skill: 'SQL & Databases', pct: 80, color: '#f59e0b' },
-              { skill: 'AWS Cloud Services', pct: 70, color: '#f97316' },
-            ].map((item, i) => (
-              <div key={item.skill}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm text-white/70">{item.skill}</span>
-                  <span className="text-xs font-mono" style={{ color: item.color }}>{item.pct}%</span>
-                </div>
-                <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full rounded-full"
-                    style={{ background: `linear-gradient(90deg, ${item.color}, ${item.color}88)` }}
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: `${item.pct}%` } : { width: 0 }}
-                    transition={{ duration: 1, delay: 0.3 + i * 0.1, ease: 'easeOut' }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   )
