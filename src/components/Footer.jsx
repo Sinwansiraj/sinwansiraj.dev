@@ -10,7 +10,7 @@ export default function Footer() {
             S
           </div>
           <span className="text-sm text-white/40">
-            Sinwan Siraj &middot; AI/ML Engineer
+            Mohammed Sinwan &middot; AI/ML Engineer
           </span>
         </div>
 

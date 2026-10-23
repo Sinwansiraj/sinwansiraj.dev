@@ -52,20 +52,20 @@ export const projects = [
   {
     id: 2,
     title: 'AI Lead Quality Scoring System',
-    tagline: 'Production-grade B2B CRM lead prioritisation — live FastAPI on Vercel',
+    tagline: 'Production-grade B2B CRM lead prioritisation — React on Vercel, FastAPI on Render',
     description:
-      'A production-ready ML system that scores inbound B2B leads 0–100 by conversion probability and issues prescriptive sales actions — so reps focus only on leads that convert. XGBoost + engineered engagement signals, live REST API on Render.',
+      'A production-ready ML system that scores inbound B2B leads 0–100 by conversion probability and issues prescriptive sales actions — so reps focus only on leads that convert. XGBoost + engineered engagement signals, with a React frontend on Vercel and the FastAPI scoring API on Render.',
     problem:
       'Sales teams waste 60–70% of their time on low-quality leads that never convert. Manual scoring is inconsistent and subjective. This system brings data-driven, explainable prioritisation to every lead — automatically and in real time.',
     features: [
       'XGBoost production model with scale_pos_weight for 12% imbalanced conversion rate — ROC-AUC > 0.85',
       '5 engineered features: Engagement Score (0–100), Recency Decay, Interaction Intensity, Sales Readiness Score, Demo × Engagement interaction',
       'Lead Quality Scoring: model probability → 0–100 score → Hot / Warm / Cold tier + prescriptive action (Immediate Call / Demo Invite / Nurture / Re-qualification)',
-      'FastAPI REST endpoint /api/v1/score-lead — real-time & batch scoring, CRM webhook-ready, live on Vercel',
+      'FastAPI REST endpoint /api/v1/score-lead — real-time & batch scoring, CRM webhook-ready, API hosted on Render (frontend on Vercel)',
       'SHAP feature importance: surfaces top drivers (demo requested, engagement score, company size, recency) for full explainability',
       'End-to-end pipeline: synthetic CRM data gen → feature engineering → preprocessing → train → evaluate → score → rank → deploy',
     ],
-    tech: ['Python', 'XGBoost', 'SHAP', 'FastAPI', 'Scikit-learn', 'Pandas', 'Vercel', 'Jupyter'],
+    tech: ['Python', 'XGBoost', 'SHAP', 'FastAPI', 'Scikit-learn', 'Pandas', 'Render', 'Vercel'],
     image: '/assets/Lead_scoring_thumbnail.png',
     github: 'https://github.com/Sinwansiraj/ai-lead-scoring-system',
     demo: 'https://ai-lead-scoring-system.vercel.app/',
@@ -103,27 +103,28 @@ export const projects = [
   {
     id: 4,
     title: 'News Article Categorization on AWS',
-    tagline: 'Serverless NLP pipeline — cloud-native & production-grade',
+    tagline: 'Fine-tuned DistilBERT news classifier — 94.62% accuracy on AWS',
     description:
-      'A fully serverless, event-driven news classification system deployed on AWS. Enter a headline or short description and the model instantly classifies it into one of Antonio Gulli\'s news categories — with zero servers to manage.',
+      'A multi-class news article classifier built by fine-tuning a DistilBERT transformer on Antonio Gulli\'s News dataset, reaching 94.62% accuracy. Trained and served on AWS — EC2 for compute, S3 for the dataset, and RDS for structured storage.',
     problem:
-      'Manual news curation cannot scale. Publishers and aggregators need to classify hundreds of articles per hour with high accuracy and zero latency. A serverless-first architecture on AWS makes this both scalable and cost-efficient.',
+      'Manual news curation cannot scale — publishers and aggregators need to classify hundreds of articles per hour with high accuracy. A fine-tuned transformer gives domain-accurate topic classification that a generic, off-the-shelf service cannot match on this dataset.',
     features: [
-      'AWS Comprehend for NLP: entity extraction, key-phrase detection, and sentiment analysis on every article',
-      'Lambda-triggered classification pipeline — S3 upload fires the entire pipeline automatically',
-      'Multi-class topic classifier across Antonio Gulli\'s News categories achieving 94% accuracy',
-      'S3 data lake with Hive-style partitioning (year/month/day/category) for downstream analytics',
-      'CloudWatch dashboards: throughput, confidence distribution, and error rates',
-      'SNS alerts for low-confidence predictions routed to a human review queue',
-      'IAM least-privilege policies and VPC config — production security best practices throughout',
+      'Fine-tuned DistilBERT transformer for multi-class topic classification — 94.62% accuracy across Antonio Gulli\'s News categories',
+      'Trained on AWS EC2 with the dataset staged in Amazon S3',
+      'Structured predictions and metadata persisted in Amazon RDS',
+      'Hugging Face Transformers + PyTorch pipeline: tokenisation, fine-tuning, and evaluation (accuracy, precision, recall, F1)',
+      'Reproducible preprocessing and inference scripts — modular and deployment-ready',
     ],
-    tech: ['AWS Lambda', 'S3', 'Comprehend', 'CloudWatch', 'SNS', 'IAM', 'Python', 'Boto3'],
+    tech: ['Python', 'DistilBERT', 'Hugging Face', 'PyTorch', 'AWS EC2', 'S3', 'RDS'],
     image: '/assets/News_categoirazation_thumbnail.png',
     github: 'https://github.com/Sinwansiraj/DEPLOYMENT_OF_NEWS_ARTICLE',
     demo: null,
     category: 'NLP / Cloud / AWS',
     color: '#f59e0b',
     featured: true,
+    metrics: [
+      { model: 'DistilBERT (fine-tuned)', accuracy: '94.62%', f1: '—' }, // TODO: add real F1 if you have it; '—' avoids inventing a number.
+    ],
   },
   {
     id: 5,

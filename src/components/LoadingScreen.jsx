@@ -60,7 +60,7 @@ export default function LoadingScreen({ onComplete }) {
               className="text-center"
             >
               <h1 className="text-2xl font-display font-bold tracking-wide text-white/90">
-                Sinwan Siraj
+                Mohammed Sinwan
               </h1>
               <p className="text-sm font-mono text-white/40 mt-1 tracking-widest uppercase">
                 AI / ML Engineer

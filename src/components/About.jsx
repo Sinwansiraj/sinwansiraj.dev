@@ -86,7 +86,7 @@ export default function About() {
                 <div className="w-24 h-24 rounded-2xl overflow-hidden border border-white/10">
                   <img
                     src="/assets/profile.jpg"
-                    alt="Sinwan Siraj"
+                    alt="Mohammed Sinwan"
                     className="w-full h-full object-cover"
                     onError={e => {
                       e.target.style.display = 'none'
@@ -101,8 +101,8 @@ export default function About() {
                 <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-green-400 border-2 border-dark-900" />
               </div>
               <div>
-                <h3 className="text-xl font-display font-semibold text-white">Sinwan Siraj</h3>
-                <p className="text-xs text-white/30 font-mono -mt-0.5 mb-1">Mohammed Sinwan</p>
+                <h3 className="text-xl font-display font-semibold text-white">Mohammed Sinwan</h3>
+                <p className="text-xs text-white/30 font-mono -mt-0.5 mb-1">Sinwan Siraj</p>
                 <p className="text-sm text-cyan-400 font-mono">AI / ML Engineer</p>
                 <p className="text-sm text-white/40 mt-1">📍 India &nbsp;·&nbsp; Open to Remote</p>
               </div>

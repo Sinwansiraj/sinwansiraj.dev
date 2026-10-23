@@ -89,9 +89,9 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="text-5xl sm:text-6xl lg:text-8xl font-display font-bold mb-4 tracking-tight"
         >
-          <span className="text-white">Sinwan</span>
+          <span className="text-white">Mohammed</span>
           <br />
-          <span className="gradient-text">Siraj</span>
+          <span className="gradient-text">Sinwan</span>
         </motion.h1>
 
         {/* Typing animation */}
