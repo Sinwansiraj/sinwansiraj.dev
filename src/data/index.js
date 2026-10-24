@@ -375,7 +375,7 @@ export const timeline = [
     icon: '⚖️',
   },
   {
-    year: '2024 – Present',
+    year: '2024 – 2025',
     title: 'AI/ML Engineer & Product Builder',
     subtitle: 'Independent Projects',
     description:
