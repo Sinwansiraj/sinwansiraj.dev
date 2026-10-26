@@ -262,10 +262,12 @@
         </ul>
         <p>No sign-up, no real data — the inputs are harmless sample fields and nothing is stored.</p>
         <p>
-          <strong>About the input format:</strong> the batch demo takes leads as <em>pasted JSON</em> purely so it works
-          in the browser with zero setup. That's a demo choice, not a product constraint — in a real deployment the
-          input would match the team's workflow (a CSV/Excel upload, a direct CRM integration, or a webhook that scores
-          each lead the moment it's created). The scoring API contract stays the same regardless of how the leads arrive.
+          <strong>About the input format:</strong> the batch demo takes leads as <em>pasted JSON</em> purely so it runs
+          in the browser with zero setup — a <strong>prototype framing</strong>, not a product constraint. In a real
+          deployment the manual paste is replaced by a <strong>data-collection layer</strong> that pulls engagement
+          signals straight from the client's existing stack — <strong>HubSpot, Salesforce, Mailchimp, GA4</strong> and
+          similar tools — and scores each lead automatically (via upload, a direct CRM integration, or a webhook). The
+          scoring API contract stays the same regardless of how the leads arrive.
         </p>
       </section>
 
