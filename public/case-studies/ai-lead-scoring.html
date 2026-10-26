@@ -261,6 +261,12 @@
           <li><strong>“Batch Score”</strong> lets you score many leads at once and see them ranked highest-first.</li>
         </ul>
         <p>No sign-up, no real data — the inputs are harmless sample fields and nothing is stored.</p>
+        <p>
+          <strong>About the input format:</strong> the batch demo takes leads as <em>pasted JSON</em> purely so it works
+          in the browser with zero setup. That's a demo choice, not a product constraint — in a real deployment the
+          input would match the team's workflow (a CSV/Excel upload, a direct CRM integration, or a webhook that scores
+          each lead the moment it's created). The scoring API contract stays the same regardless of how the leads arrive.
+        </p>
       </section>
 
       <!-- 4. How it works -->
@@ -337,7 +343,7 @@
 
       <!-- 7. Security & operations -->
       <section>
-        <div class="kicker">07 · Security &amp; operations</div>
+        <div class="kicker">07 · Security, operations &amp; privacy</div>
         <h2>Safe to leave running in public</h2>
         <ul>
           <li><strong>Rate limiting:</strong> a per-IP limit on the scoring endpoints protects the free tier from accidental floods and abuse (the limiter fails open, so a bug never blocks real traffic).</li>
@@ -346,6 +352,14 @@
           <li><strong>Hardened container:</strong> the app runs as a non-root user with a Docker <code>HEALTHCHECK</code>, and there are no secrets in the code or the repo.</li>
           <li><strong>Input validation:</strong> every field is validated by Pydantic — out-of-range or unknown values are rejected with a clear 422 instead of a crash.</li>
         </ul>
+        <h3>What happens to the data you enter (privacy)</h3>
+        <p>
+          The scoring service is <strong>stateless</strong>: leads you submit are processed in memory to produce a
+          score and then discarded — there is <strong>no database and nothing is written to disk</strong>. Traffic is
+          encrypted over HTTPS, and the batch endpoint logs only <strong>aggregate counts</strong> (e.g. “5 leads:
+          2 Hot, 2 Warm, 1 Cold”), never your row-level data. Nothing you enter is sent to the page's analytics.
+          Because this is a public demo, please use the provided sample data rather than real customer records.
+        </p>
       </section>
 
       <!-- 8. Limitations -->
