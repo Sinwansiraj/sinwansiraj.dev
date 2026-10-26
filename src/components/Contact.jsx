@@ -55,7 +55,7 @@ const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID
 
 export default function Contact() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', purpose: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -81,9 +81,9 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           ...form,
-          _subject: form.subject
-            ? `Portfolio contact: ${form.subject}`
-            : 'New portfolio contact',
+          _subject: `Portfolio contact${form.purpose ? ` [${form.purpose}]` : ''}${
+            form.subject ? `: ${form.subject}` : ''
+          }`,
         }),
       })
 
@@ -231,7 +231,7 @@ export default function Contact() {
                   Thanks for reaching out. I'll get back to you within 24 hours.
                 </p>
                 <button
-                  onClick={() => { setSent(false); setForm({ name: '', email: '', subject: '', message: '' }) }}
+                  onClick={() => { setSent(false); setForm({ name: '', email: '', purpose: '', subject: '', message: '' }) }}
                   className="text-xs text-cyan-400/70 hover:text-cyan-400 transition-colors mt-2"
                 >
                   Send another message
@@ -268,6 +268,26 @@ export default function Contact() {
                       className="contact-input"
                     />
                   </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs text-white/40 font-mono uppercase tracking-wider mb-2">
+                    What brings you here?
+                  </label>
+                  <select
+                    name="purpose"
+                    value={form.purpose}
+                    onChange={handleChange}
+                    required
+                    className="contact-input"
+                  >
+                    <option value="" disabled>Select one…</option>
+                    <option value="Freelance / product build">Freelance / product build</option>
+                    <option value="Hiring / a role">Hiring / a role</option>
+                    <option value="Collaboration / partnership">Collaboration / partnership</option>
+                    <option value="Just exploring">Just exploring</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
 
                 <div>
