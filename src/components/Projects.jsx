@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Github, ExternalLink, ChevronDown, ChevronUp, Layers } from 'lucide-react'
+import { Github, ExternalLink, ChevronDown, ChevronUp, Layers, FileText } from 'lucide-react'
 import { projects } from '../data'
 
 const fadeUp = {
@@ -102,6 +102,21 @@ function ProjectCard({ project, index, inView }) {
             >
               <ExternalLink className="w-4 h-4" />
               Demo
+            </a>
+          )}
+          {project.caseStudy && (
+            <a
+              href={project.caseStudy}
+              onClick={e => e.stopPropagation()}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium"
+              style={{
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                color: 'white',
+              }}
+            >
+              <FileText className="w-4 h-4" />
+              Case Study
             </a>
           )}
         </div>
@@ -220,6 +235,16 @@ function ProjectCard({ project, index, inView }) {
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 Live Demo
+              </a>
+            )}
+            {project.caseStudy && (
+              <a
+                href={project.caseStudy}
+                className="flex items-center gap-1.5 text-xs hover:opacity-80 transition-opacity"
+                style={{ color: project.color }}
+              >
+                <FileText className="w-3.5 h-3.5" />
+                Case Study
               </a>
             )}
           </div>

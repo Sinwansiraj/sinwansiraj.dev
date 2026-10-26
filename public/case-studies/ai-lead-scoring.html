@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-23XYGTN9EP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() { dataLayer.push(arguments) }
+      gtag('js', new Date())
+      gtag('config', 'G-23XYGTN9EP')
+    </script>
+    <!-- End Google tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Study — AI Lead Scoring System | Mohammed Sinwan</title>
+    <meta
+      name="description"
+      content="How the AI Lead Scoring System works end-to-end: the problem, the model, honest results on synthetic data, the engineering and security, and what I'd do next. By Mohammed Sinwan."
+    />
+    <link rel="canonical" href="https://sinwansiraj.com/case-studies/ai-lead-scoring.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Case Study — AI Lead Scoring System" />
+    <meta
+      property="og:description"
+      content="A B2B lead-scoring system taken from problem to a live, tested, deployed demo — with honest results and limitations."
+    />
+    <meta property="og:image" content="https://sinwansiraj.com/assets/og-image.png" />
+    <meta property="og:url" content="https://sinwansiraj.com/case-studies/ai-lead-scoring.html" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #020410;
+        --panel: rgba(255, 255, 255, 0.035);
+        --panel-border: rgba(255, 255, 255, 0.09);
+        --text: #e9edf6;
+        --muted: rgba(233, 237, 246, 0.6);
+        --faint: rgba(233, 237, 246, 0.4);
+        --accent: #00d4ff;
+        --accent-2: #7c3aed;
+        --good: #34d399;
+        --warn: #fbbf24;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', system-ui, sans-serif;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(900px 500px at 15% -5%, rgba(0, 212, 255, 0.10), transparent 60%),
+          radial-gradient(800px 500px at 100% 0%, rgba(124, 58, 237, 0.10), transparent 55%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 16px; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      /* Top bar */
+      .topbar {
+        position: sticky; top: 0; z-index: 10;
+        backdrop-filter: blur(10px);
+        background: rgba(2, 4, 16, 0.7);
+        border-bottom: 1px solid var(--panel-border);
+      }
+      .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+      .back { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; }
+      .back:hover { color: var(--text); text-decoration: none; }
+      .brand { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.02em; }
+
+      /* Hero */
+      header.hero { padding: 56px 0 24px; }
+      .eyebrow {
+        font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.18em;
+        text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+      }
+      h1 {
+        font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.02em;
+        font-size: clamp(30px, 6vw, 48px); line-height: 1.1; margin-bottom: 16px;
+      }
+      .lede { font-size: clamp(16px, 2.4vw, 19px); color: var(--muted); max-width: 70ch; }
+      .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+      .badge {
+        display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600;
+        padding: 5px 12px; border-radius: 999px; border: 1px solid var(--panel-border);
+        background: var(--panel); color: var(--muted);
+      }
+      .badge.live { color: var(--good); border-color: rgba(52, 211, 153, 0.35); background: rgba(52, 211, 153, 0.08); }
+      .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+      .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+      .btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 12px;
+        font-weight: 600; font-size: 14.5px; border: 1px solid var(--panel-border); background: var(--panel);
+        color: var(--text); cursor: pointer;
+      }
+      .btn:hover { text-decoration: none; border-color: rgba(255, 255, 255, 0.22); }
+      .btn.primary { background: linear-gradient(135deg, var(--accent), #2aa9ff); color: #04121a; border: none; }
+      .btn.primary:hover { filter: brightness(1.07); }
+
+      /* Callout */
+      .callout {
+        margin: 28px 0; padding: 16px 18px; border-radius: 14px;
+        border: 1px solid rgba(251, 191, 36, 0.3); background: rgba(251, 191, 36, 0.07);
+        font-size: 14.5px; color: #fde9b8;
+      }
+      .callout strong { color: var(--warn); }
+
+      /* Sections */
+      section { padding: 30px 0; border-top: 1px solid var(--panel-border); }
+      .kicker {
+        font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.16em;
+        text-transform: uppercase; color: var(--faint); margin-bottom: 10px;
+      }
+      h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(22px, 4vw, 30px); margin-bottom: 14px; letter-spacing: -0.01em; }
+      h3 { font-size: 17px; font-weight: 700; margin: 20px 0 8px; }
+      p { color: var(--muted); margin-bottom: 14px; }
+      p strong, li strong { color: var(--text); }
+      ul { list-style: none; margin: 0 0 14px; }
+      li { color: var(--muted); padding-left: 22px; position: relative; margin-bottom: 8px; }
+      li::before { content: '›'; position: absolute; left: 4px; color: var(--accent); font-weight: 700; }
+
+      /* Flow diagram */
+      .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; margin: 18px 0; }
+      .flow .node {
+        flex: 1 1 150px; min-width: 140px; padding: 14px; border-radius: 12px;
+        background: var(--panel); border: 1px solid var(--panel-border);
+      }
+      .flow .node .t { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+      .flow .node .s { font-size: 12.5px; color: var(--faint); font-family: 'JetBrains Mono', monospace; }
+      .flow .arrow { align-self: center; color: var(--accent); font-size: 20px; }
+
+      /* Cards grid */
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
+      .card { padding: 16px; border-radius: 14px; background: var(--panel); border: 1px solid var(--panel-border); }
+      .card .h { font-weight: 700; font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+      .card p { font-size: 13.5px; margin: 0; }
+
+      /* Metric tiles */
+      .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 16px 0; }
+      .metric { padding: 18px; border-radius: 14px; background: var(--panel); border: 1px solid var(--panel-border); text-align: center; }
+      .metric .v { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; color: var(--accent); }
+      .metric .l { font-size: 12.5px; color: var(--faint); margin-top: 4px; }
+
+      /* Tier table */
+      table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+      th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--panel-border); }
+      th { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+      td { color: var(--muted); }
+      .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700; }
+      .pill.hot { color: #fca5a5; background: rgba(239, 68, 68, 0.14); }
+      .pill.warm { color: #fcd34d; background: rgba(245, 158, 11, 0.14); }
+      .pill.cold { color: #93c5fd; background: rgba(59, 130, 246, 0.14); }
+
+      code {
+        font-family: 'JetBrains Mono', monospace; font-size: 0.88em;
+        background: rgba(255, 255, 255, 0.07); padding: 1px 6px; border-radius: 6px; color: #d7e3ff;
+      }
+      .chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0; }
+      .chip { font-size: 12.5px; color: var(--muted); padding: 4px 11px; border-radius: 8px; background: var(--panel); border: 1px solid var(--panel-border); }
+
+      footer { padding: 36px 0 60px; border-top: 1px solid var(--panel-border); color: var(--faint); font-size: 13.5px; }
+      footer .cta { margin-bottom: 18px; }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="wrap">
+        <a class="back" href="/">← Back to portfolio</a>
+        <span class="brand">Mohammed Sinwan</span>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <header class="hero">
+        <div class="eyebrow">Case Study · ML / Sales Intelligence</div>
+        <h1>AI Lead Scoring System</h1>
+        <p class="lede">
+          A system that reads a sales lead's behaviour and answers one question reps actually care about:
+          <strong>“Who should I call first?”</strong> It scores every lead 0–100, labels it Hot, Warm, or Cold,
+          and recommends the next action — served through a live API and a simple dashboard.
+        </p>
+        <div class="badges">
+          <span class="badge live"><span class="dot"></span>Live demo</span>
+          <span class="badge">End-to-end: data → model → API → UI → deploy</span>
+          <span class="badge">Tested &amp; CI-verified</span>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="https://ai-lead-scoring-system.vercel.app/" target="_blank" rel="noopener">▶ Try the live demo</a>
+          <a class="btn" href="https://ai-lead-scoring-system.onrender.com/docs" target="_blank" rel="noopener">API docs (Swagger)</a>
+          <a class="btn" href="https://github.com/Sinwansiraj/ai-lead-scoring-system" target="_blank" rel="noopener">View code on GitHub</a>
+        </div>
+      </header>
+
+      <div class="callout">
+        <strong>Two honest notes before you click.</strong>
+        (1) The live API runs on a free hosting tier, so the <em>first</em> request after a quiet period can take
+        ~30–60 seconds to wake up — after that it's instant. (2) The model is trained on <em>synthetic</em> CRM data
+        I generated, not real customer records. The numbers below show that the method works; they are not a promise
+        of real-world performance on your data.
+      </div>
+
+      <!-- 1. Problem -->
+      <section>
+        <div class="kicker">01 · The problem</div>
+        <h2>Sales teams waste most of their time on leads that never convert</h2>
+        <p>
+          A typical CRM hands a rep a flat list of hundreds of leads with no signal about which ones are worth a call.
+          So effort gets spread evenly — the lead who requested a demo yesterday gets the same attention as one who
+          went cold three months ago. Industry studies put the wasted effort at <strong>60–70% of a rep's time</strong>.
+        </p>
+        <p>
+          <strong>Who it's for:</strong> B2B sales and revenue teams, and the RevOps people who feed leads into a CRM.
+          The goal is simple — turn an undifferentiated list into a <strong>ranked, explained priority order</strong>.
+        </p>
+      </section>
+
+      <!-- 2. What it does -->
+      <section>
+        <div class="kicker">02 · What it does</div>
+        <h2>Every lead gets a score, a tier, and a recommended next step</h2>
+        <p>Give it a lead's basic CRM fields (source, industry, company size, engagement signals) and it returns:</p>
+        <table>
+          <thead>
+            <tr><th>Tier</th><th>Score</th><th>What it means</th><th>Recommended action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="pill hot">Hot</span></td><td>80–100</td><td>High conversion signal</td><td>Call immediately</td></tr>
+            <tr><td><span class="pill warm">Warm</span></td><td>50–79</td><td>Engaged, not ready</td><td>Invite to a demo / nurture</td></tr>
+            <tr><td><span class="pill cold">Cold</span></td><td>0–49</td><td>Low signal for now</td><td>Automated nurture / re-qualify</td></tr>
+          </tbody>
+        </table>
+        <p>
+          It works one lead at a time (<code>/api/v1/score</code>) for real-time use inside a form or CRM webhook,
+          or in bulk (<code>/api/v1/score/batch</code>, up to 1,000 leads) for a nightly re-scoring job.
+        </p>
+      </section>
+
+      <!-- 3. Try it -->
+      <section>
+        <div class="kicker">03 · Try the live demo</div>
+        <h2>How to see it working in 30 seconds</h2>
+        <ul>
+          <li>Open the <a href="https://ai-lead-scoring-system.vercel.app/" target="_blank" rel="noopener">dashboard</a>. A status bar at the top shows when the model is live (give it a minute if it's waking up).</li>
+          <li>On <strong>“Score a Lead”</strong>, fill in a lead — e.g. source <em>Referral</em>, <em>Enterprise</em> size, a few website visits, demo requested = yes — and submit. You'll get a score, a Hot/Warm/Cold tier, and the recommended action.</li>
+          <li>Try a weak lead (cold source, no demo, interaction 90+ days ago) and watch the score and recommendation change.</li>
+          <li><strong>“Batch Score”</strong> lets you score many leads at once and see them ranked highest-first.</li>
+        </ul>
+        <p>No sign-up, no real data — the inputs are harmless sample fields and nothing is stored.</p>
+      </section>
+
+      <!-- 4. How it works -->
+      <section>
+        <div class="kicker">04 · How it works</div>
+        <h2>The moving parts, end to end</h2>
+        <p>At request time, a lead flows through four stages:</p>
+        <div class="flow">
+          <div class="node"><div class="t">React dashboard</div><div class="s">Vercel</div></div>
+          <div class="arrow">→</div>
+          <div class="node"><div class="t">FastAPI service</div><div class="s">Render · Docker</div></div>
+          <div class="arrow">→</div>
+          <div class="node"><div class="t">XGBoost model</div><div class="s">conversion probability</div></div>
+          <div class="arrow">→</div>
+          <div class="node"><div class="t">Score · tier · action</div><div class="s">0–100 + next step</div></div>
+        </div>
+        <p>
+          The frontend is a React/Vite app on Vercel. The brain is a Python <strong>FastAPI</strong> service running in a
+          Docker container on Render. When a request arrives, the service engineers features from the raw lead, asks the
+          <strong>XGBoost</strong> model for a conversion probability, and turns that into the final score and recommendation.
+        </p>
+        <h3>How the 0–100 score is built (and why it's explainable)</h3>
+        <p>
+          The score isn't just the model's raw probability. It's a transparent blend so a human can reason about it:
+        </p>
+        <ul>
+          <li><strong>60%</strong> — the model's conversion probability (the learned signal)</li>
+          <li><strong>25%</strong> — an <strong>engagement</strong> score from behaviour (website visits, email clicks, demo requested)</li>
+          <li><strong>15%</strong> — a <strong>recency</strong> score that decays as time since the last interaction grows</li>
+        </ul>
+        <p>
+          There's also a <strong>behavioural floor</strong>: a highly engaged, very recent lead can't be buried by a low
+          model probability alone. That keeps the ranking sensible to a salesperson, not just to the math.
+        </p>
+      </section>
+
+      <!-- 5. Results -->
+      <section>
+        <div class="kicker">05 · Results &amp; evaluation</div>
+        <h2>How well the model separates converters from non-converters</h2>
+        <div class="metrics">
+          <div class="metric"><div class="v">0.89</div><div class="l">ROC-AUC (hold-out)</div></div>
+          <div class="metric"><div class="v">~12%</div><div class="l">base conversion rate</div></div>
+          <div class="metric"><div class="v">3</div><div class="l">Python versions tested</div></div>
+          <div class="metric"><div class="v">&lt;50ms</div><div class="l">typical scoring latency</div></div>
+        </div>
+        <p>
+          <strong>ROC-AUC ≈ 0.89</strong> on a held-out test set. In plain terms: given one lead that converted and one
+          that didn't, the model ranks the converter higher about <strong>89% of the time</strong> — well above the 50%
+          you'd get from guessing. The data is imbalanced (~12% convert), so the model is trained with
+          <code>scale_pos_weight</code> to stay sensitive to the rare positive class rather than just predicting “no”.
+        </p>
+        <p>
+          A logistic-regression baseline is included for honesty and interpretability — XGBoost is the production choice
+          because it captures the non-linear interactions (e.g. <em>demo requested × engagement</em>) that a linear model misses.
+        </p>
+        <p class="callout" style="margin-top:18px">
+          <strong>Important:</strong> this ROC-AUC is measured on <em>synthetic</em> data whose patterns I designed.
+          It validates the pipeline and method; real CRM data would need its own training and evaluation before any claim about production accuracy.
+        </p>
+      </section>
+
+      <!-- 6. Engineering & verification -->
+      <section>
+        <div class="kicker">06 · Engineering &amp; verification</div>
+        <h2>Built and checked like a production service</h2>
+        <div class="grid">
+          <div class="card"><div class="h">✅ Automated tests</div><p>Unit and API tests cover data generation, feature engineering, the model, and every endpoint — including the 503 “no model” and 422 “bad input” paths.</p></div>
+          <div class="card"><div class="h">🔁 CI on every push</div><p>GitHub Actions runs Ruff (lint + format), mypy (types), and the full test suite on Python 3.10, 3.11 and 3.12, then builds the Docker image.</p></div>
+          <div class="card"><div class="h">📊 Coverage gate</div><p>The build fails if test coverage drops below 80%, so new code has to come with tests.</p></div>
+          <div class="card"><div class="h">📦 Reproducible build</div><p>Pinned dependencies and a multi-stage Docker image mean the service builds the same way locally, in CI, and on Render.</p></div>
+        </div>
+      </section>
+
+      <!-- 7. Security & operations -->
+      <section>
+        <div class="kicker">07 · Security &amp; operations</div>
+        <h2>Safe to leave running in public</h2>
+        <ul>
+          <li><strong>Rate limiting:</strong> a per-IP limit on the scoring endpoints protects the free tier from accidental floods and abuse (the limiter fails open, so a bug never blocks real traffic).</li>
+          <li><strong>Locked-down CORS:</strong> the API only accepts browser calls from the known dashboard origin, not <code>*</code>.</li>
+          <li><strong>No cold-start surprise:</strong> a scheduled job pings the health endpoint every 10 minutes so the demo stays warm for visitors.</li>
+          <li><strong>Hardened container:</strong> the app runs as a non-root user with a Docker <code>HEALTHCHECK</code>, and there are no secrets in the code or the repo.</li>
+          <li><strong>Input validation:</strong> every field is validated by Pydantic — out-of-range or unknown values are rejected with a clear 422 instead of a crash.</li>
+        </ul>
+      </section>
+
+      <!-- 8. Limitations -->
+      <section>
+        <div class="kicker">08 · Known limitations</div>
+        <h2>What this version is <em>not</em></h2>
+        <ul>
+          <li><strong>Synthetic data.</strong> The model learns patterns I designed, not real buyer behaviour. Real deployment needs real historical CRM data.</li>
+          <li><strong>Free-tier hosting.</strong> One small instance, one region, and a cold start after idle periods. Fine for a demo, not for production SLAs.</li>
+          <li><strong>Stateless scoring.</strong> Scores aren't persisted or tracked over time — there's no feedback loop retraining the model on outcomes yet.</li>
+          <li><strong>No authentication on the public demo.</strong> It's open on purpose for evaluation, protected by rate limiting rather than login.</li>
+        </ul>
+      </section>
+
+      <!-- 9. Tech stack -->
+      <section>
+        <div class="kicker">09 · Tech stack</div>
+        <h2>What it's built with</h2>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">XGBoost</span><span class="chip">scikit-learn</span>
+          <span class="chip">pandas / NumPy</span><span class="chip">FastAPI</span><span class="chip">Pydantic</span>
+          <span class="chip">React + Vite</span><span class="chip">Docker</span><span class="chip">Render</span>
+          <span class="chip">Vercel</span><span class="chip">GitHub Actions</span><span class="chip">Ruff · mypy · pytest</span>
+        </div>
+      </section>
+
+      <!-- 10. Lessons -->
+      <section>
+        <div class="kicker">10 · Lessons learned</div>
+        <h2>What I'd carry into the next project</h2>
+        <ul>
+          <li><strong>A score people trust beats a score that's slightly more accurate.</strong> Blending the model probability with explainable engagement and recency signals made the ranking defensible to a non-technical user.</li>
+          <li><strong>Imbalanced data needs deliberate handling.</strong> With a 12% positive rate, accuracy is a misleading metric — ROC-AUC and class weighting were the right tools.</li>
+          <li><strong>“Deployed” is a feature, not an afterthought.</strong> Cold starts, CORS, and rate limiting are what separate a notebook from something you can actually hand a stranger a link to.</li>
+          <li><strong>Be explicit about synthetic data.</strong> Stating the limitation up front builds more credibility than a big accuracy number without context.</li>
+        </ul>
+      </section>
+
+      <footer>
+        <div class="cta">
+          <a class="btn primary" href="https://ai-lead-scoring-system.vercel.app/" target="_blank" rel="noopener">▶ Try the live demo</a>
+          <a class="btn" href="https://ai-lead-scoring-system.onrender.com/docs" target="_blank" rel="noopener">API docs</a>
+          <a class="btn" href="https://github.com/Sinwansiraj/ai-lead-scoring-system" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="/">← Back to portfolio</a>
+        </div>
+        <p>Built by Mohammed Sinwan · AI/ML Engineer. Results shown are on synthetic data and demonstrate the method, not guaranteed production performance.</p>
+      </footer>
+    </div>
+  </body>
+</html>
