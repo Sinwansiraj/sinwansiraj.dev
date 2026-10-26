@@ -23,7 +23,7 @@ export default function Footer() {
             className="text-white/30 hover:text-white/70 transition-colors text-sm">
             LinkedIn
           </a>
-          <a href="mailto:sinwanmohammed022@gmail.com"
+          <a href="mailto:admin@sinwansiraj.com"
             className="text-white/30 hover:text-white/70 transition-colors text-sm">
             Email
           </a>
