@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-23XYGTN9EP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() { dataLayer.push(arguments) }
+      gtag('js', new Date())
+      gtag('config', 'G-23XYGTN9EP')
+    </script>
+    <!-- End Google tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Study — Mini Zia (Business Insight Generator) | Mohammed Sinwan</title>
+    <meta
+      name="description"
+      content="How Mini Zia turns raw KPI data into plain-English business insights with a transparent, rule-based engine — the problem, how it works, honest limitations, and a live demo. By Mohammed Sinwan."
+    />
+    <link rel="canonical" href="https://sinwansiraj.com/case-studies/mini-zia.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Case Study — Mini Zia (Business Insight Generator)" />
+    <meta
+      property="og:description"
+      content="An automated KPI analyst: detects anomalies, compares periods, finds the likely cause, and writes an executive summary — explainable, tested, and deployed."
+    />
+    <meta property="og:image" content="https://sinwansiraj.com/assets/og-image.png" />
+    <meta property="og:url" content="https://sinwansiraj.com/case-studies/mini-zia.html" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #050410;
+        --panel: rgba(255, 255, 255, 0.035);
+        --panel-border: rgba(255, 255, 255, 0.09);
+        --text: #e9e6f6;
+        --muted: rgba(233, 230, 246, 0.6);
+        --faint: rgba(233, 230, 246, 0.4);
+        --accent: #a78bfa;
+        --accent-2: #7c3aed;
+        --good: #34d399;
+        --warn: #fbbf24;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', system-ui, sans-serif;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(900px 500px at 15% -5%, rgba(124, 58, 237, 0.14), transparent 60%),
+          radial-gradient(800px 500px at 100% 0%, rgba(0, 212, 255, 0.08), transparent 55%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 16px; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      .topbar {
+        position: sticky; top: 0; z-index: 10;
+        backdrop-filter: blur(10px);
+        background: rgba(5, 4, 16, 0.7);
+        border-bottom: 1px solid var(--panel-border);
+      }
+      .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+      .back { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; }
+      .back:hover { color: var(--text); text-decoration: none; }
+      .brand { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.02em; }
+
+      header.hero { padding: 56px 0 24px; }
+      .eyebrow {
+        font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.18em;
+        text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+      }
+      h1 {
+        font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.02em;
+        font-size: clamp(30px, 6vw, 48px); line-height: 1.1; margin-bottom: 16px;
+      }
+      .lede { font-size: clamp(16px, 2.4vw, 19px); color: var(--muted); max-width: 70ch; }
+      .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+      .badge {
+        display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600;
+        padding: 5px 12px; border-radius: 999px; border: 1px solid var(--panel-border);
+        background: var(--panel); color: var(--muted);
+      }
+      .badge.live { color: var(--good); border-color: rgba(52, 211, 153, 0.35); background: rgba(52, 211, 153, 0.08); }
+      .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+      .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+      .btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 12px;
+        font-weight: 600; font-size: 14.5px; border: 1px solid var(--panel-border); background: var(--panel);
+        color: var(--text); cursor: pointer;
+      }
+      .btn:hover { text-decoration: none; border-color: rgba(255, 255, 255, 0.22); }
+      .btn.primary { background: linear-gradient(135deg, var(--accent-2), #9f67ff); color: #0b0618; border: none; }
+      .btn.primary:hover { filter: brightness(1.08); }
+
+      .callout {
+        margin: 28px 0; padding: 16px 18px; border-radius: 14px;
+        border: 1px solid rgba(251, 191, 36, 0.3); background: rgba(251, 191, 36, 0.07);
+        font-size: 14.5px; color: #fde9b8;
+      }
+      .callout strong { color: var(--warn); }
+
+      section { padding: 30px 0; border-top: 1px solid var(--panel-border); }
+      .kicker {
+        font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.16em;
+        text-transform: uppercase; color: var(--faint); margin-bottom: 10px;
+      }
+      h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(22px, 4vw, 30px); margin-bottom: 14px; letter-spacing: -0.01em; }
+      h3 { font-size: 17px; font-weight: 700; margin: 20px 0 8px; }
+      p { color: var(--muted); margin-bottom: 14px; }
+      p strong, li strong { color: var(--text); }
+      ul { list-style: none; margin: 0 0 14px; }
+      li { color: var(--muted); padding-left: 22px; position: relative; margin-bottom: 8px; }
+      li::before { content: '›'; position: absolute; left: 4px; color: var(--accent); font-weight: 700; }
+
+      .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; margin: 18px 0; }
+      .flow .node {
+        flex: 1 1 150px; min-width: 140px; padding: 14px; border-radius: 12px;
+        background: var(--panel); border: 1px solid var(--panel-border);
+      }
+      .flow .node .t { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+      .flow .node .s { font-size: 12.5px; color: var(--faint); font-family: 'JetBrains Mono', monospace; }
+      .flow .arrow { align-self: center; color: var(--accent); font-size: 20px; }
+
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
+      .card { padding: 16px; border-radius: 14px; background: var(--panel); border: 1px solid var(--panel-border); }
+      .card .h { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+      .card p { font-size: 13.5px; margin: 0; }
+
+      .example {
+        margin: 16px 0; padding: 16px 18px; border-radius: 14px;
+        background: rgba(124, 58, 237, 0.08); border: 1px solid rgba(124, 58, 237, 0.3);
+        font-size: 15px; color: var(--text);
+      }
+      .example .q { color: var(--faint); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin-bottom: 6px; }
+
+      table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+      th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--panel-border); }
+      th { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+      td { color: var(--muted); }
+      .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700; }
+      .pill.crit { color: #fca5a5; background: rgba(239, 68, 68, 0.14); }
+      .pill.high { color: #fdba74; background: rgba(245, 158, 11, 0.14); }
+      .pill.med { color: #fde047; background: rgba(234, 179, 8, 0.14); }
+
+      code {
+        font-family: 'JetBrains Mono', monospace; font-size: 0.88em;
+        background: rgba(255, 255, 255, 0.07); padding: 1px 6px; border-radius: 6px; color: #e3d7ff;
+      }
+      .chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0; }
+      .chip { font-size: 12.5px; color: var(--muted); padding: 4px 11px; border-radius: 8px; background: var(--panel); border: 1px solid var(--panel-border); }
+
+      footer { padding: 36px 0 60px; border-top: 1px solid var(--panel-border); color: var(--faint); font-size: 13.5px; }
+      footer .cta { margin-bottom: 18px; }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="wrap">
+        <a class="back" href="/">← Back to portfolio</a>
+        <span class="brand">Mohammed Sinwan</span>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <header class="hero">
+        <div class="eyebrow">Case Study · AI Analytics / Automation</div>
+        <h1>Mini Zia — Business Insight Generator</h1>
+        <p class="lede">
+          An automated KPI analyst. Point it at business data and it answers the question a manager actually asks:
+          <strong>“What changed, why, and what should I do about it?”</strong> It flags anomalies, compares this period
+          to the last, finds the likely cause, and writes a plain-English summary with recommendations — using a
+          <strong>transparent, rule-based engine</strong>, not a black box.
+        </p>
+        <div class="badges">
+          <span class="badge live"><span class="dot"></span>Live demo</span>
+          <span class="badge">Explainable (rule-based)</span>
+          <span class="badge">Tested · CI on Python 3.10–3.12</span>
+          <span class="badge">Runs on any OS</span>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="https://minizia-kpcoyhjmslueh75wgz4mfv.streamlit.app/" target="_blank" rel="noopener">▶ Try the live demo</a>
+          <a class="btn" href="https://github.com/Sinwansiraj/mini_zia" target="_blank" rel="noopener">View code on GitHub</a>
+        </div>
+      </header>
+
+      <div class="callout">
+        <strong>Two honest notes before you click.</strong>
+        (1) The insights come from a <em>deterministic, rule-based</em> engine — it's fully explainable and never
+        makes up numbers. An optional LLM "rephrasing" layer exists in the code but is <em>disabled</em> in this demo.
+        (2) The demo runs on a free tier and uses <em>synthetic</em> business data (or a CSV you upload); if the app has
+        been idle it may take a few seconds to wake up.
+      </div>
+
+      <!-- 1. Problem -->
+      <section>
+        <div class="kicker">01 · The problem</div>
+        <h2>Dashboards show numbers. People need the story.</h2>
+        <p>
+          Every company has dashboards full of KPIs, but someone still has to <em>read</em> them, spot what moved, work
+          out why, and write it up for the weekly review. That's slow, manual, and easy to miss things in. What a
+          manager actually wants is a sentence:
+        </p>
+        <div class="example">
+          <div class="q">the kind of answer Mini Zia produces</div>
+          “🟠 Sales dropped 18% in Chennai (Enterprise) vs last week — the likely cause is a 40% fall in leads.
+          Recommendation: increase lead generation and review the regional pipeline.”
+        </div>
+        <p><strong>Who it's for:</strong> founders, ops and revenue leads, and analysts who spend hours turning dashboards into narratives.</p>
+      </section>
+
+      <!-- 2. What it does -->
+      <section>
+        <div class="kicker">02 · What it does</div>
+        <h2>Four steps, from raw KPIs to an executive summary</h2>
+        <div class="flow">
+          <div class="node"><div class="t">1 · Detect anomalies</div><div class="s">outliers vs the norm</div></div>
+          <div class="arrow">→</div>
+          <div class="node"><div class="t">2 · Compare periods</div><div class="s">this vs last window</div></div>
+          <div class="arrow">→</div>
+          <div class="node"><div class="t">3 · Find the cause</div><div class="s">which driver moved</div></div>
+          <div class="arrow">→</div>
+          <div class="node"><div class="t">4 · Write the insight</div><div class="s">summary + actions</div></div>
+        </div>
+        <p>Each result is tagged with a priority so attention goes where it matters:</p>
+        <table>
+          <thead><tr><th>Priority</th><th>Trigger</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill crit">Critical</span></td><td>&gt; 25% change</td><td>Investigate now</td></tr>
+            <tr><td><span class="pill high">High</span></td><td>15–25% change</td><td>Worth a close look</td></tr>
+            <tr><td><span class="pill med">Medium</span></td><td>&lt; 15% change</td><td>Keep an eye on it</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 3. Try it -->
+      <section>
+        <div class="kicker">03 · Try the live demo</div>
+        <h2>See it work in 30 seconds</h2>
+        <ul>
+          <li>Open the <a href="https://minizia-kpcoyhjmslueh75wgz4mfv.streamlit.app/" target="_blank" rel="noopener">app</a> (give it a moment if it's waking up).</li>
+          <li>Keep <strong>Sample data</strong>, or switch to <strong>Upload CSV</strong> and use the downloadable template.</li>
+          <li>Pick a <strong>comparison window</strong> (e.g. last 7 days vs the 7 before), optionally filter by region/segment.</li>
+          <li>Click <strong>Run analysis</strong> — you'll get anomalies, a priority + headline, key insights, recommendations, and a sales trend chart.</li>
+        </ul>
+        <p>
+          <strong>About the input:</strong> pasting/uploading data is a demo convenience. In a real deployment this is
+          replaced by a <strong>data-collection layer</strong> that reads KPIs straight from a company's BI/warehouse or
+          tools (e.g. a data warehouse, Google Analytics, a CRM) and runs on a schedule — the insight engine stays the same.
+        </p>
+      </section>
+
+      <!-- 4. How it works -->
+      <section>
+        <div class="kicker">04 · How it works</div>
+        <h2>A transparent engine — and why that's a feature</h2>
+        <p>
+          Mini Zia is built from small, single-purpose Python modules: an <strong>anomaly detector</strong> (statistical
+          outliers), a <strong>trend analyzer</strong> (period-over-period change and cause/effect between drivers), and
+          an <strong>insight engine</strong> that turns those findings into natural-language summaries and recommendations.
+        </p>
+        <p>
+          It's deliberately <strong>rule-based and deterministic</strong>: the same data always produces the same answer,
+          every number traces back to the data, and there's no risk of a model "hallucinating" a figure. For a tool whose
+          whole job is to be <em>trusted</em> by a decision-maker, that explainability matters more than sophistication.
+        </p>
+        <h3>The optional LLM layer</h3>
+        <p>
+          The codebase includes an optional layer to rephrase the deterministic summary into a more conversational tone via
+          an LLM. It's <strong>off by default</strong> (and disabled in this public demo) so the core product needs no API
+          keys, has no per-call cost, and sends nothing to a third party — the LLM is polish on top of a solid foundation,
+          not the foundation itself.
+        </p>
+      </section>
+
+      <!-- 5. Engineering -->
+      <section>
+        <div class="kicker">05 · Engineering &amp; verification</div>
+        <h2>Built to run, and to keep running</h2>
+        <div class="grid">
+          <div class="card"><div class="h">✅ Tested</div><p>A pytest suite covers data generation, period extraction, anomaly detection, and the full insight pipeline.</p></div>
+          <div class="card"><div class="h">🔁 CI on every push</div><p>GitHub Actions runs the tests on Python 3.10, 3.11 and 3.12 — so changes can't silently break it.</p></div>
+          <div class="card"><div class="h">🖥️ Runs on any OS</div><p>Unicode console output is forced to UTF-8 at startup, so it runs cleanly on Windows, macOS and Linux (no encoding crashes).</p></div>
+          <div class="card"><div class="h">📦 Reproducible</div><p>Pinned dependencies and a one-command setup; deployed to Streamlit Community Cloud from the repo.</p></div>
+        </div>
+      </section>
+
+      <!-- 6. Data & privacy -->
+      <section>
+        <div class="kicker">06 · Data &amp; privacy</div>
+        <h2>What happens to your data</h2>
+        <p>
+          The demo runs on <strong>synthetic data</strong> by default. If you upload a CSV, it's processed
+          <strong>in memory</strong> to produce the analysis and is <strong>not stored</strong> — there's no database.
+          Since it's a public demo, use sample or non-sensitive data. In a real deployment, the data-collection layer would
+          read from the client's own governed sources with proper access controls.
+        </p>
+      </section>
+
+      <!-- 7. Limitations -->
+      <section>
+        <div class="kicker">07 · Known limitations</div>
+        <h2>What this version is <em>not</em></h2>
+        <ul>
+          <li><strong>Synthetic data.</strong> The demo's patterns are generated; real value comes from a company's own KPIs.</li>
+          <li><strong>Rule-based, not learning.</strong> It applies well-chosen statistical rules; it doesn't learn from history or adapt thresholds automatically (yet).</li>
+          <li><strong>LLM layer disabled.</strong> The conversational-rephrasing layer isn't wired to a provider in the demo.</li>
+          <li><strong>Free-tier hosting.</strong> The app sleeps when idle and wakes on first visit; fine for a demo, not a production SLA.</li>
+        </ul>
+      </section>
+
+      <!-- 8. Tech stack -->
+      <section>
+        <div class="kicker">08 · Tech stack</div>
+        <h2>What it's built with</h2>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">pandas</span><span class="chip">NumPy</span>
+          <span class="chip">Streamlit</span><span class="chip">Rule-based NLG</span>
+          <span class="chip">pytest</span><span class="chip">GitHub Actions</span><span class="chip">Streamlit Cloud</span>
+        </div>
+      </section>
+
+      <!-- 9. Lessons -->
+      <section>
+        <div class="kicker">09 · Lessons learned</div>
+        <h2>What I'd carry forward</h2>
+        <ul>
+          <li><strong>Explainable beats clever for decision tools.</strong> A deterministic summary a manager can trust is worth more than an opaque model that's occasionally more eloquent.</li>
+          <li><strong>Design the LLM as optional.</strong> Keeping the core rule-based means the product works with zero cost and zero data-sharing; the LLM is an upgrade, not a dependency.</li>
+          <li><strong>“Runs everywhere” is real work.</strong> A single Unicode print crashed it on Windows — portability needs to be verified, not assumed.</li>
+        </ul>
+      </section>
+
+      <footer>
+        <div class="cta">
+          <a class="btn primary" href="https://minizia-kpcoyhjmslueh75wgz4mfv.streamlit.app/" target="_blank" rel="noopener">▶ Try the live demo</a>
+          <a class="btn" href="https://github.com/Sinwansiraj/mini_zia" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="/">← Back to portfolio</a>
+        </div>
+        <p>Built by Mohammed Sinwan · AI/ML Engineer. Demo uses synthetic data and a rule-based engine; results illustrate the method, not guaranteed production outcomes.</p>
+      </footer>
+    </div>
+  </body>
+</html>
